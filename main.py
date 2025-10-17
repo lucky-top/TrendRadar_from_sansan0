@@ -987,11 +987,11 @@ def format_rank_display(ranks: List[int], rank_threshold: int, format_type: str)
         highlight_start = "<font color='red'>**"
         highlight_end = "**</font>"
     elif format_type == "dingtalk":
-        highlight_start = "**"
-        highlight_end = "**"
+        highlight_start = ""
+        highlight_end = ""
     elif format_type == "wework":
-        highlight_start = "**"
-        highlight_end = "**"
+        highlight_start = ""
+        highlight_end = ""
     elif format_type == "telegram":
         highlight_start = "<b>"
         highlight_end = "</b>"
@@ -2830,7 +2830,7 @@ def split_content_into_batches(
 
     base_header = ""
     if format_type == "wework":
-        base_header = f"**总新闻数：** {total_titles}\n\n\n\n"
+        base_header = f"总新闻数： {total_titles}\n\n\n\n"
     elif format_type == "telegram":
         base_header = f"总新闻数： {total_titles}\n\n"
     elif format_type == "ntfy":
@@ -2845,7 +2845,7 @@ def split_content_into_batches(
     if format_type == "wework":
         base_footer = f"\n\n\n> 更新时间：{now.strftime('%Y-%m-%d %H:%M:%S')}"
         if update_info:
-            base_footer += f"\n> TrendRadar 发现新版本 **{update_info['remote_version']}**，当前 **{update_info['current_version']}**"
+            base_footer += f"\n> TrendRadar 发现新版本 {update_info['remote_version']}，当前 {update_info['current_version']}"
     elif format_type == "telegram":
         base_footer = f"\n\n更新时间：{now.strftime('%Y-%m-%d %H:%M:%S')}"
         if update_info:
@@ -2862,7 +2862,7 @@ def split_content_into_batches(
     stats_header = ""
     if report_data["stats"]:
         if format_type == "wework":
-            stats_header = f"📊 **热点词汇统计**\n\n"
+            stats_header = f"📊 热点词汇统计\n\n"
         elif format_type == "telegram":
             stats_header = f"📊 热点词汇统计\n\n"
         elif format_type == "ntfy":
