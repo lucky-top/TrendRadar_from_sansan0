@@ -2918,14 +2918,14 @@ def split_content_into_batches(
             if format_type == "wework":
                 if count >= 10:
                     word_header = (
-                        f"🔥 {sequence_display} **{word}** : **{count}** 条\n\n"
+                        f"🔥 {sequence_display} {word} : {count} 条\n\n"
                     )
                 elif count >= 5:
                     word_header = (
-                        f"📈 {sequence_display} **{word}** : **{count}** 条\n\n"
+                        f"📈 {sequence_display} {word} : {count} 条\n\n"
                     )
                 else:
-                    word_header = f"📌 {sequence_display} **{word}** : {count} 条\n\n"
+                    word_header = f"📌 {sequence_display} {word} : {count} 条\n\n"
             elif format_type == "telegram":
                 if count >= 10:
                     word_header = f"🔥 {sequence_display} {word} : {count} 条\n\n"
@@ -3064,7 +3064,7 @@ def split_content_into_batches(
     if report_data["new_titles"]:
         new_header = ""
         if format_type == "wework":
-            new_header = f"\n\n\n\n🆕 **本次新增热点新闻** (共 {report_data['total_new_count']} 条)\n\n"
+            new_header = f"\n\n\n\n🆕 本次新增热点新闻 (共 {report_data['total_new_count']} 条)\n\n"
         elif format_type == "telegram":
             new_header = (
                 f"\n\n🆕 本次新增热点新闻 (共 {report_data['total_new_count']} 条)\n\n"
@@ -3091,7 +3091,7 @@ def split_content_into_batches(
         for source_data in report_data["new_titles"]:
             source_header = ""
             if format_type == "wework":
-                source_header = f"**{source_data['source_name']}** ({len(source_data['titles'])} 条):\n\n"
+                source_header = f"{source_data['source_name']} ({len(source_data['titles'])} 条):\n\n"
             elif format_type == "telegram":
                 source_header = f"{source_data['source_name']} ({len(source_data['titles'])} 条):\n\n"
             elif format_type == "ntfy":
@@ -3505,7 +3505,7 @@ def send_to_wework(
 
         # 添加批次标识
         if len(batches) > 1:
-            batch_header = f"**[第 {i}/{len(batches)} 批次]**\n\n"
+            batch_header = f"[第 {i}/{len(batches)} 批次]\n\n"
             batch_content = batch_header + batch_content
 
         payload = {"msgtype": "text", "text": {"content": batch_content}}
