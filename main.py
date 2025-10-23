@@ -990,8 +990,8 @@ def format_rank_display(ranks: List[int], rank_threshold: int, format_type: str)
         highlight_start = "**"
         highlight_end = "**"
     elif format_type == "wework":
-        highlight_start = "**"
-        highlight_end = "**"
+        highlight_start = ""
+        highlight_end = ""
     elif format_type == "telegram":
         highlight_start = "<b>"
         highlight_end = "</b>"
@@ -2830,7 +2830,7 @@ def split_content_into_batches(
 
     base_header = ""
     if format_type == "wework":
-        base_header = f"**总新闻数：** {total_titles}\n\n\n\n"
+        base_header = f"总新闻数： {total_titles}\n\n\n\n"
     elif format_type == "telegram":
         base_header = f"总新闻数： {total_titles}\n\n"
     elif format_type == "ntfy":
@@ -2845,7 +2845,7 @@ def split_content_into_batches(
     if format_type == "wework":
         base_footer = f"\n\n\n> 更新时间：{now.strftime('%Y-%m-%d %H:%M:%S')}"
         if update_info:
-            base_footer += f"\n> TrendRadar 发现新版本 **{update_info['remote_version']}**，当前 **{update_info['current_version']}**"
+            base_footer += f"\n> TrendRadar 发现新版本 {update_info['remote_version']}，当前 {update_info['current_version']}"
     elif format_type == "telegram":
         base_footer = f"\n\n更新时间：{now.strftime('%Y-%m-%d %H:%M:%S')}"
         if update_info:
@@ -2862,7 +2862,7 @@ def split_content_into_batches(
     stats_header = ""
     if report_data["stats"]:
         if format_type == "wework":
-            stats_header = f"📊 **热点词汇统计**\n\n"
+            stats_header = f"📊 热点词汇统计\n\n"
         elif format_type == "telegram":
             stats_header = f"📊 热点词汇统计\n\n"
         elif format_type == "ntfy":
@@ -2918,14 +2918,14 @@ def split_content_into_batches(
             if format_type == "wework":
                 if count >= 10:
                     word_header = (
-                        f"🔥 {sequence_display} **{word}** : **{count}** 条\n\n"
+                        f"🔥 {sequence_display} {word} : {count} 条\n\n"
                     )
                 elif count >= 5:
                     word_header = (
-                        f"📈 {sequence_display} **{word}** : **{count}** 条\n\n"
+                        f"📈 {sequence_display} {word} : {count} 条\n\n"
                     )
                 else:
-                    word_header = f"📌 {sequence_display} **{word}** : {count} 条\n\n"
+                    word_header = f"📌 {sequence_display} {word} : {count} 条\n\n"
             elif format_type == "telegram":
                 if count >= 10:
                     word_header = f"🔥 {sequence_display} {word} : {count} 条\n\n"
@@ -3508,7 +3508,8 @@ def send_to_wework(
             batch_header = f"**[第 {i}/{len(batches)} 批次]**\n\n"
             batch_content = batch_header + batch_content
 
-        payload = {"msgtype": "markdown", "markdown": {"content": batch_content}}
+        payload = {"msgtype": "text", "text": {"content": batch_content}}
+        # payload = {"msgtype": "markdown", "markdown": {"content": batch_content}}
 
         try:
             response = requests.post(
